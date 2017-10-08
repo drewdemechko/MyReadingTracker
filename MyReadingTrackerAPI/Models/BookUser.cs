@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace MyReadingTrackerAPI.Models
 {
-    public class Library
+    public class BookUser
     {
         public int Id { get; set; }
-        public ICollection<BookLibrary> BookLibraries {get;set;}
+        public int BookId { get; set; }
+        public Book Book { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

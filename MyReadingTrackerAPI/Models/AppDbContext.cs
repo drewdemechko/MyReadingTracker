@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Builder;
 
 namespace MyReadingTrackerAPI.Models
 {
@@ -36,5 +37,9 @@ namespace MyReadingTrackerAPI.Models
 
         //Entities in database
         public DbSet<Account> Account { get; set; } //All entities have an account
+        public DbSet<User> User { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<WishList> WishList { get; set; }
+        public DbSet<Library> Library { get; set; }
     }
 }

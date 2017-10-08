@@ -9,7 +9,7 @@ namespace MyReadingTrackerAPI.Models
     {
         public int Id { get; set; }
         public virtual Account Account { get; set; }
-        public virtual Library Library { get; set; }
         public virtual WishList WishList { get; set; }
+        public virtual Library Library { get; set; }
     }
 }

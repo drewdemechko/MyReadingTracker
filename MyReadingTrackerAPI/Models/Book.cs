@@ -17,5 +17,7 @@ namespace MyReadingTrackerAPI.Models
         public int Isbn { get; set; }
         public int PageCount { get; set; }
         public string Image { get; set; }
+        public ICollection<BookLibrary> BookLibraries { get; set; }
+        public ICollection<BookWishList> BookWishLists { get; set; }
     }
 }
