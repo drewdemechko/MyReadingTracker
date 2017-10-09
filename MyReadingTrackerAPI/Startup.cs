@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyReadingTrackerAPI.Models;
 using MyReadingTrackerAPI.Services;
+using MyReadingTrackerAPI.Services.Contracts;
 
 namespace MyReadingTrackerAPI
 {
@@ -37,6 +38,10 @@ namespace MyReadingTrackerAPI
             services.AddMvc();
 
             services.AddScoped<IAccountDomainService, AccountDomainService>();
+            services.AddScoped<IUserDomainService, UserDomainService>();
+            services.AddScoped<IBookDomainService, BookDomainService>();
+            services.AddScoped<ILibraryDomainService, LibraryDomainService>();
+            services.AddScoped<IWishListDomainService, WishListDomainService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
