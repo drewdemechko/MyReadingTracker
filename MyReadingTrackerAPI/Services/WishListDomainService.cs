@@ -4,14 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MyReadingTrackerAPI.Models;
+using Microsoft.Data.Entity;
 
 namespace MyReadingTrackerAPI.Services
 {
     public class WishListDomainService : IWishListDomainService
     {
+        private AppDbContext database;
+        private List<WishList> wishLists;
+
+        public WishListDomainService()
+        {
+            database = new AppDbContext();
+            wishLists = database.WishList.Include(wishList => wishList.BookWishLists).AsNoTracking().ToList();
+        }
+
         public WishList Add(WishList WishList)
         {
-            throw new NotImplementedException();
+            database.WishList.Add(WishList);
+            database.SaveChanges();
+            return WishList;
         }
 
         public WishList Delete(WishList WishList)

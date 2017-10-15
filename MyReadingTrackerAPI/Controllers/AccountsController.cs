@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MyReadingTrackerAPI.Services;
 using MyReadingTrackerAPI.Models;
+using MyReadingTrackerAPI.Services.Contracts;
 
 namespace MyReadingTrackerAPI.Controllers
 {
@@ -12,9 +13,13 @@ namespace MyReadingTrackerAPI.Controllers
     public class AccountsController : Controller
     {
         private IAccountDomainService _accountService;
+        private IUserDomainService _userService;
+        private ILibraryDomainService _libraryService;
+        private IWishListDomainService _wishListService;
 
-        public AccountsController(IAccountDomainService accountService){
+        public AccountsController(IAccountDomainService accountService, IUserDomainService userService){
             _accountService = accountService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -22,7 +27,7 @@ namespace MyReadingTrackerAPI.Controllers
         {
             var accounts = _accountService.Get();
 
-            if(accounts == null)
+            if(accounts.Count == 0)
             {
                 return HttpNotFound("No accounts were found.");
             }
@@ -62,6 +67,7 @@ namespace MyReadingTrackerAPI.Controllers
             }
 
             Account newAccount = null;
+
             var existingAccount = _accountService.Get(NewAccount.Username);
 
             if (existingAccount != null)
@@ -72,6 +78,13 @@ namespace MyReadingTrackerAPI.Controllers
             if (ModelState.IsValid)
             {
                 newAccount = _accountService.Add(NewAccount);
+
+                var newUser = new User
+                {
+                    Account = newAccount
+                };
+
+                _userService.Add(newUser);
             }
 
             if (newAccount == null)
