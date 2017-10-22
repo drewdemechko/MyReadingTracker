@@ -29,5 +29,25 @@ namespace MyReadingTrackerAPI.Controllers
 
             return new JsonResult(users);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult Get(int id, bool includeBooks)
+        {
+            //not a valid id, should only allow integer values
+            if (id == 0)
+            {
+                return HttpBadRequest("User could not be retreived. User id:" + id + " is not a valid user id.");
+            }
+
+            var user = _userService.Get(id, includeBooks);
+
+            if (user == null)
+            {
+                return HttpNotFound("No user exists with id:" + id + ".");
+            }
+
+            return new JsonResult(user);
+        }
     }
 }

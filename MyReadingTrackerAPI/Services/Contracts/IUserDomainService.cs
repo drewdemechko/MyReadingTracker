@@ -9,7 +9,7 @@ namespace MyReadingTrackerAPI.Services.Contracts
     public interface IUserDomainService
     {
         List<User> Get();
-        User Get(int id);
+        User Get(int id, bool includeBooks);
         User Delete(User User);
         User Update(User User);
         User Add(User User);

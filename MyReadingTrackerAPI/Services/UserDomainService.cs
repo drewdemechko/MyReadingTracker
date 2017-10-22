@@ -54,12 +54,17 @@ namespace MyReadingTrackerAPI.Services
             return users;
         }
 
-        public User Get(int id)
+        public User Get(int id, bool includeBooks)
         {
             throw new NotImplementedException();
         }
 
         public User Update(User User)
+        {
+            throw new NotImplementedException();
+        }
+
+        private User HydrateBooks(int id)
         {
             throw new NotImplementedException();
         }
