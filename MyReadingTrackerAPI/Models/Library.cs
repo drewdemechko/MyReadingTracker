@@ -8,6 +8,5 @@ namespace MyReadingTrackerAPI.Models
     public class Library
     {
         public int Id { get; set; }
-        public ICollection<BookLibrary> BookLibraries {get;set;}
     }
 }

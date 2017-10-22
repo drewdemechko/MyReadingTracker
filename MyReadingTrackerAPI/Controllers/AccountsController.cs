@@ -79,17 +79,25 @@ namespace MyReadingTrackerAPI.Controllers
             {
                 newAccount = _accountService.Add(NewAccount);
 
+                if (newAccount == null)
+                {
+                    return HttpBadRequest("Account creation failed.");
+                }
+
                 var newUser = new User
                 {
                     Account = newAccount
                 };
 
-                _userService.Add(newUser);
-            }
-
-            if (newAccount == null)
-            {
-                return HttpBadRequest("Account creation failed.");
+                try
+                {
+                    _userService.Add(newUser);
+                }
+                catch (Exception)
+                {
+                    _accountService.Delete(newAccount);
+                    return HttpBadRequest("Account creation failed. Unable to create user.");
+                }
             }
 
             return new JsonResult(newAccount);

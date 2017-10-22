@@ -10,6 +10,8 @@ namespace MyReadingTrackerAPI.Services.Contracts
     {
         List<Book> Get();
         Book Get(int id);
+        List<Book> GetByWishList(int wishListId);
+        List<Book> GetByLibrary(int libraryId);
         Book Delete(Book Book);
         Book Update(Book Book);
         Book Add(Book Book);

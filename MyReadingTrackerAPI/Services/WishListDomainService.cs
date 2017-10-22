@@ -16,7 +16,7 @@ namespace MyReadingTrackerAPI.Services
         public WishListDomainService()
         {
             database = new AppDbContext();
-            wishLists = database.WishList.Include(wishList => wishList.BookWishLists).AsNoTracking().ToList();
+            wishLists = database.WishList.AsNoTracking().ToList();
         }
 
         public WishList Add(WishList WishList)
@@ -26,24 +26,19 @@ namespace MyReadingTrackerAPI.Services
             return WishList;
         }
 
-        public WishList Delete(WishList WishList)
+        public WishList Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+            var wishList = wishLists.Where(wl => wl.Id == id).FirstOrDefault();
 
-        public List<WishList> Get()
-        {
-            throw new NotImplementedException();
-        }
+            if(wishList == null)
+            {
+                //cannot implement ApplicationException yet?
+                throw new Exception("WishList " + id + " could not be found");
+            }
 
-        public WishList Get(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public WishList Update(WishList WishList)
-        {
-            throw new NotImplementedException();
+            database.WishList.Remove(wishList);
+            database.SaveChanges();
+            return wishList;
         }
     }
 }

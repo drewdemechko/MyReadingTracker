@@ -16,7 +16,7 @@ namespace MyReadingTrackerAPI.Services
         public LibraryDomainService()
         {
             database = new AppDbContext();
-            libraries = database.Library.Include(library => library.BookLibraries).AsNoTracking().ToList();
+            libraries = database.Library.AsNoTracking().ToList();
         }
 
         public Library Add(Library Library)
@@ -26,24 +26,19 @@ namespace MyReadingTrackerAPI.Services
             return Library;
         }
 
-        public Library Delete(Library Library)
+        public Library Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+            var library = libraries.Where(l => l.Id == id).FirstOrDefault();
 
-        public List<Library> Get()
-        {
-            throw new NotImplementedException();
-        }
+            if (library == null)
+            {
+                //cannot implement ApplicationException yet?
+                throw new Exception("Library " + id + " could not be found");
+            }
 
-        public Library Get(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Library Update(Library Library)
-        {
-            throw new NotImplementedException();
+            database.Library.Remove(library);
+            database.SaveChanges();
+            return library;
         }
     }
 }

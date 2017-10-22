@@ -8,9 +8,7 @@ namespace MyReadingTrackerAPI.Models
     public class BookLibrary
     {
         public int Id { get; set; }
-        public int BookId { get; set; }
-        public Book Book { get; set; }
-        public int LibraryId { get; set; }
-        public Library Library { get; set; }
+        public virtual Book Book { get; set; }
+        public virtual Library Library { get; set; }
     }
 }

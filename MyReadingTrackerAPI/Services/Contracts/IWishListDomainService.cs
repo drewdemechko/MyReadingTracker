@@ -8,10 +8,7 @@ namespace MyReadingTrackerAPI.Services.Contracts
 {
     public interface IWishListDomainService
     {
-        List<WishList> Get();
-        WishList Get(int userId);
-        WishList Delete(WishList WishList);
-        WishList Update(WishList WishList);
+        WishList Delete(int id);
         WishList Add(WishList WishList);
     }
 }

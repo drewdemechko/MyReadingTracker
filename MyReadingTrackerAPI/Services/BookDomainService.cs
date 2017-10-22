@@ -29,6 +29,16 @@ namespace MyReadingTrackerAPI.Services
             throw new NotImplementedException();
         }
 
+        public List<Book> GetByWishList(int wishListId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Book> GetByLibrary(int libraryId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Book Update(Book Book)
         {
             throw new NotImplementedException();

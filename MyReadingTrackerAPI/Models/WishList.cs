@@ -8,6 +8,5 @@ namespace MyReadingTrackerAPI.Models
     public class WishList
     {
         public int Id { get; set; }
-        public ICollection<BookWishList> BookWishLists { get; set; }
     }
 }

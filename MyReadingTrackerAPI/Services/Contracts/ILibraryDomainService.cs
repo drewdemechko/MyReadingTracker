@@ -8,10 +8,7 @@ namespace MyReadingTrackerAPI.Services.Contracts
 {
     public interface ILibraryDomainService
     {
-        List<Library> Get();
-        Library Get(int userId);
-        Library Delete(Library Library);
-        Library Update(Library Library);
+        Library Delete(int id);
         Library Add(Library Library);
     }
 }

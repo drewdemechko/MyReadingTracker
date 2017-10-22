@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyReadingTrackerAPI.Models;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Internal;
 
 namespace MyReadingTrackerAPI.Services
 {
