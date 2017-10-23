@@ -12,11 +12,13 @@ namespace MyReadingTrackerAPI.Services
     {
         private AppDbContext database;
         private List<Library> libraries;
+        private List<BookLibrary> booksInLibraries;
 
         public LibraryDomainService()
         {
             database = new AppDbContext();
             libraries = database.Library.AsNoTracking().ToList();
+            booksInLibraries = database.BookLibrary.Include(bookInLibrary => bookInLibrary.Library).AsNoTracking().ToList();
         }
 
         public Library Add(Library Library)
@@ -36,9 +38,24 @@ namespace MyReadingTrackerAPI.Services
                 throw new Exception("Library " + id + " could not be found");
             }
 
+            DeleteBooksFromLibrary(id);
+
             database.Library.Remove(library);
             database.SaveChanges();
             return library;
+        }
+
+        private List<BookLibrary> DeleteBooksFromLibrary(int libraryId)
+        {
+            booksInLibraries.Where(bookInLibrary => bookInLibrary.Library.Id == libraryId);
+
+            booksInLibraries.ForEach(bookInLibrary =>
+            {
+                database.BookLibrary.Remove(bookInLibrary);
+            });
+
+            database.SaveChanges();
+            return booksInLibraries;
         }
     }
 }

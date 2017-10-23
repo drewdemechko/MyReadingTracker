@@ -12,11 +12,13 @@ namespace MyReadingTrackerAPI.Services
     {
         private AppDbContext database;
         private List<WishList> wishLists;
+        private List<BookWishList> booksInWishlists;
 
         public WishListDomainService()
         {
             database = new AppDbContext();
             wishLists = database.WishList.AsNoTracking().ToList();
+            booksInWishlists = database.BookWishList.Include(bookInWishList => bookInWishList.WishList).AsNoTracking().ToList();
         }
 
         public WishList Add(WishList WishList)
@@ -36,9 +38,24 @@ namespace MyReadingTrackerAPI.Services
                 throw new Exception("WishList " + id + " could not be found");
             }
 
+            DeleteBooksFromWishList(id);
+
             database.WishList.Remove(wishList);
             database.SaveChanges();
             return wishList;
+        }
+
+        private List<BookWishList> DeleteBooksFromWishList(int wishListId)
+        {
+            booksInWishlists.Where(bookInWishList => bookInWishList.WishList.Id == wishListId);
+
+            booksInWishlists.ForEach(bookInWishList =>
+            {
+                database.BookWishList.Remove(bookInWishList);
+            });
+
+            database.SaveChanges();
+            return booksInWishlists;
         }
     }
 }
