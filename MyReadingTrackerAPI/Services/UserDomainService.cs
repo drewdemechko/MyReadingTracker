@@ -44,9 +44,21 @@ namespace MyReadingTrackerAPI.Services
             return User;
         }
 
-        public User Delete(User User)
+        public User Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public User DeleteByAccountId(int accountId)
+        {
+            var userToDelete = users.Where(user => user.Account.Id == accountId).FirstOrDefault();
+
+            _libraryService.Delete(userToDelete.Library.Id);
+            _wishListService.Delete(userToDelete.WishList.Id);
+
+            database.User.Remove(userToDelete);
+            database.SaveChanges();
+            return userToDelete;
         }
 
         public List<User> Get()

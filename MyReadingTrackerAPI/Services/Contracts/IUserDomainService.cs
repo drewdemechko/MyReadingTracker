@@ -10,7 +10,8 @@ namespace MyReadingTrackerAPI.Services.Contracts
     {
         List<User> Get();
         User Get(int id, bool includeBooks);
-        User Delete(User User);
+        User Delete(int id);
+        User DeleteByAccountId(int accountId);
         User Update(User User);
         User Add(User User);
     }

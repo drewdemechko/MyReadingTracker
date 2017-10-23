@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Entity;
 using MyReadingTrackerAPI.Models;
+using MyReadingTrackerAPI.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace MyReadingTrackerAPI.Services
 {
     public class AccountDomainService : IAccountDomainService
     {
+        private IUserDomainService _userService;
         private AppDbContext database;
         private List<Account> accounts;
 
-        public AccountDomainService()
+        public AccountDomainService(IUserDomainService userService)
         {
+            _userService = userService;
             database = new AppDbContext();
             accounts = database.Account.AsNoTracking().ToList();
         }
@@ -27,6 +30,7 @@ namespace MyReadingTrackerAPI.Services
 
         public Account Delete(Account Account)
         {
+            _userService.DeleteByAccountId(Account.Id);
             database.Account.Remove(Account);
             database.SaveChanges();
             return Account;
