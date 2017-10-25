@@ -69,11 +69,7 @@ namespace MyReadingTrackerAPI.Services
         public User Get(int id, bool includeBooks)
         {
             throw new NotImplementedException();
-        }
-
-        public User Update(User User)
-        {
-            throw new NotImplementedException();
+            //HydrateBooks(id)
         }
 
         private User HydrateBooks(int id)
