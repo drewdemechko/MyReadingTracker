@@ -59,12 +59,12 @@ namespace MyReadingTrackerAPI.Services
 
         public Account Get(int id)
         {
-            return accounts.Where(a => a.Id == id).FirstOrDefault();
+            return accounts.FirstOrDefault(account => account.Id == id);
         }
 
         public Account Get(string username)
         {
-            return accounts.Where(a => a.Username == username).FirstOrDefault();
+            return accounts.FirstOrDefault(a => a.Username == username);
         }
 
         public List<Account> Get()

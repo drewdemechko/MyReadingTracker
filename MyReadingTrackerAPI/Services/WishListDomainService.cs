@@ -30,7 +30,7 @@ namespace MyReadingTrackerAPI.Services
 
         public WishList Delete(int id)
         {
-            var wishList = wishLists.Where(wl => wl.Id == id).FirstOrDefault();
+            var wishList = wishLists.FirstOrDefault(wl => wl.Id == id);
 
             if(wishList == null)
             {

@@ -30,7 +30,7 @@ namespace MyReadingTrackerAPI.Services
 
         public Library Delete(int id)
         {
-            var library = libraries.Where(l => l.Id == id).FirstOrDefault();
+            var library = libraries.FirstOrDefault(l => l.Id == id);
 
             if (library == null)
             {

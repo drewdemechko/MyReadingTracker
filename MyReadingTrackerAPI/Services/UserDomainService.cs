@@ -29,7 +29,7 @@ namespace MyReadingTrackerAPI.Services
 
         public User Add(User User)
         {
-            var existingUser = users.Find(user => user.Account.Id == User.Account.Id);
+            var existingUser = users.FirstOrDefault(user => user.Account.Id == User.Account.Id);
 
             if(existingUser != null)
             {
