@@ -8,7 +8,7 @@ namespace MyReadingTrackerAPI.Services.Contracts
 {
     public interface ILibraryDomainService
     {
-        Library Delete(int id);
+        Library Delete(Library Library);
         Library Add(Library Library);
     }
 }

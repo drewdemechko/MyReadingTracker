@@ -46,8 +46,8 @@ namespace MyReadingTrackerAPI.Services
 
         public User Delete(User User)
         {
-            _libraryService.Delete(User.Library.Id);
-            _wishListService.Delete(User.WishList.Id);
+            _libraryService.Delete(User.Library);
+            _wishListService.Delete(User.WishList);
 
             database.User.Remove(User);
             database.SaveChanges();

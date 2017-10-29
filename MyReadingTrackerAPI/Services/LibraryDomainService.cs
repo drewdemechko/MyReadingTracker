@@ -28,21 +28,13 @@ namespace MyReadingTrackerAPI.Services
             return Library;
         }
 
-        public Library Delete(int id)
+        public Library Delete(Library Library)
         {
-            var library = libraries.FirstOrDefault(l => l.Id == id);
+            DeleteBooksFromLibrary(Library.Id);
 
-            if (library == null)
-            {
-                //cannot implement ApplicationException yet?
-                throw new Exception("Library " + id + " could not be found");
-            }
-
-            DeleteBooksFromLibrary(id);
-
-            database.Library.Remove(library);
+            database.Library.Remove(Library);
             database.SaveChanges();
-            return library;
+            return Library;
         }
 
         private List<BookLibrary> DeleteBooksFromLibrary(int libraryId)

@@ -28,21 +28,13 @@ namespace MyReadingTrackerAPI.Services
             return WishList;
         }
 
-        public WishList Delete(int id)
+        public WishList Delete(WishList WishList)
         {
-            var wishList = wishLists.FirstOrDefault(wl => wl.Id == id);
+            DeleteBooksFromWishList(WishList.Id);
 
-            if(wishList == null)
-            {
-                //cannot implement ApplicationException yet?
-                throw new Exception("WishList " + id + " could not be found");
-            }
-
-            DeleteBooksFromWishList(id);
-
-            database.WishList.Remove(wishList);
+            database.WishList.Remove(WishList);
             database.SaveChanges();
-            return wishList;
+            return WishList;
         }
 
         private List<BookWishList> DeleteBooksFromWishList(int wishListId)
