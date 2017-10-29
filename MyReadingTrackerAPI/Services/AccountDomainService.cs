@@ -30,7 +30,13 @@ namespace MyReadingTrackerAPI.Services
 
         public Account Delete(Account Account)
         {
-            _userService.DeleteByAccountId(Account.Id);
+            var user = _userService.GetByAccount(Account.Id);
+
+            if (user != null)
+            {
+                _userService.Delete(user);
+            }
+
             database.Account.Remove(Account);
             database.SaveChanges();
             return Account;

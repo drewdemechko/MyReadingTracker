@@ -29,11 +29,11 @@ namespace MyReadingTrackerAPI.Services
 
         public User Add(User User)
         {
-            var existingUserWithMatchingAccount = users.Find(user => user.Account.Id == User.Account.Id);
+            var existingUser = users.Find(user => user.Account.Id == User.Account.Id);
 
-            if(existingUserWithMatchingAccount != null)
+            if(existingUser != null)
             {
-                return existingUserWithMatchingAccount;
+                return existingUser;
             }
 
             User.WishList = _wishListService.Add(new WishList());
@@ -44,21 +44,14 @@ namespace MyReadingTrackerAPI.Services
             return User;
         }
 
-        public User Delete(int id)
+        public User Delete(User User)
         {
-            throw new NotImplementedException();
-        }
+            _libraryService.Delete(User.Library.Id);
+            _wishListService.Delete(User.WishList.Id);
 
-        public User DeleteByAccountId(int accountId)
-        {
-            var userToDelete = users.Where(user => user.Account.Id == accountId).FirstOrDefault();
-
-            _libraryService.Delete(userToDelete.Library.Id);
-            _wishListService.Delete(userToDelete.WishList.Id);
-
-            database.User.Remove(userToDelete);
+            database.User.Remove(User);
             database.SaveChanges();
-            return userToDelete;
+            return User;
         }
 
         public List<User> Get()
@@ -70,6 +63,11 @@ namespace MyReadingTrackerAPI.Services
         {
             throw new NotImplementedException();
             //HydrateBooks(id)
+        }
+
+        public User GetByAccount(int accountId)
+        {
+            return users.FirstOrDefault(user => user.Account.Id == accountId);
         }
 
         private User HydrateBooks(int id)
