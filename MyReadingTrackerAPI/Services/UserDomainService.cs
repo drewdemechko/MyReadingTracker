@@ -16,8 +16,10 @@ namespace MyReadingTrackerAPI.Services
 
         private ILibraryDomainService _libraryService;
         private IWishListDomainService _wishListService;
+        private IBookDomainService _bookService;
 
-        public UserDomainService(ILibraryDomainService libraryService, IWishListDomainService wishListService)
+        public UserDomainService(ILibraryDomainService libraryService, IWishListDomainService wishListService,
+            IBookDomainService bookService)
         {
             database = new AppDbContext();
             users = database.User.Include(user => user.Account).Include(user => user.WishList)
@@ -25,6 +27,7 @@ namespace MyReadingTrackerAPI.Services
 
             _libraryService = libraryService;
             _wishListService = wishListService;
+            _bookService = bookService;
         }
 
         public User Add(User User)
@@ -59,10 +62,18 @@ namespace MyReadingTrackerAPI.Services
             return users;
         }
 
-        public User Get(int id, bool includeBooks)
+        public UserDto Get(int id, bool includeBooks)
         {
-            throw new NotImplementedException();
-            //HydrateBooks(id)
+            UserDto userDto = null;
+            var user = users.FirstOrDefault(u => u.Id == id);
+
+            if (user != null)
+            {
+                userDto = new UserDto(user);
+                userDto = HydrateBooks(userDto);
+            }
+
+            return userDto;
         }
 
         public User GetByAccount(int accountId)
@@ -70,9 +81,11 @@ namespace MyReadingTrackerAPI.Services
             return users.FirstOrDefault(user => user.Account.Id == accountId);
         }
 
-        private User HydrateBooks(int id)
+        private UserDto HydrateBooks(UserDto UserDto)
         {
-            throw new NotImplementedException();
+            UserDto.BooksInLibrary = _bookService.GetByLibrary(UserDto.Library.Id);
+            UserDto.BooksInWishList = _bookService.GetByWishList(UserDto.WishList.Id);
+            return UserDto;
         }
     }
 }
