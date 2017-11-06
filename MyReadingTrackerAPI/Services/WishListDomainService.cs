@@ -18,7 +18,8 @@ namespace MyReadingTrackerAPI.Services
         {
             database = new AppDbContext();
             wishLists = database.WishList.AsNoTracking().ToList();
-            booksInWishlists = database.BookWishList.Include(bookInWishList => bookInWishList.WishList).AsNoTracking().ToList();
+            booksInWishlists = database.BookWishList.Include(bookInWishList => bookInWishList.WishList)
+                .AsNoTracking().ToList();
         }
 
         public WishList Add(WishList WishList)

@@ -57,6 +57,11 @@ namespace MyReadingTrackerAPI.Services
             return Account;
         }
 
+        public List<Account> Get()
+        {
+            return accounts;
+        }
+
         public Account Get(int id)
         {
             return accounts.FirstOrDefault(account => account.Id == id);
@@ -65,11 +70,6 @@ namespace MyReadingTrackerAPI.Services
         public Account Get(string username)
         {
             return accounts.FirstOrDefault(a => a.Username == username);
-        }
-
-        public List<Account> Get()
-        {
-            return accounts;
         }
 
         public Account Login(string username, string hashedPassword)

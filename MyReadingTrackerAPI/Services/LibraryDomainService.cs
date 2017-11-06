@@ -18,7 +18,8 @@ namespace MyReadingTrackerAPI.Services
         {
             database = new AppDbContext();
             libraries = database.Library.AsNoTracking().ToList();
-            booksInLibraries = database.BookLibrary.Include(bookInLibrary => bookInLibrary.Library).AsNoTracking().ToList();
+            booksInLibraries = database.BookLibrary.Include(bookInLibrary => bookInLibrary.Library)
+                .AsNoTracking().ToList();
         }
 
         public Library Add(Library Library)

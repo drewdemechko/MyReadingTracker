@@ -14,10 +14,9 @@ namespace MyReadingTrackerAPI.Controllers
     {
         private IAccountDomainService _accountService;
         private IUserDomainService _userService;
-        private ILibraryDomainService _libraryService;
-        private IWishListDomainService _wishListService;
 
-        public AccountsController(IAccountDomainService accountService, IUserDomainService userService){
+        public AccountsController(IAccountDomainService accountService, IUserDomainService userService)
+        {
             _accountService = accountService;
             _userService = userService;
         }
@@ -145,22 +144,6 @@ namespace MyReadingTrackerAPI.Controllers
             {
                 return HttpNotFound("No account exists with id:" + id + ".");
             }
-
-            ////first - delete all account types associated with account to be deleted
-            //var deletedCoachAccount = _coachService.DeleteAssociatedAccount(account);
-
-            //if (deletedCoachAccount != null)
-            //{
-            //    var deletedCoach = _coachService.Delete(deletedCoachAccount.Coach.Id);
-            //}
-
-            //var deletedPlayerAccount = _playerService.DeleteAssociatedAccount(account);
-
-            //if (deletedPlayerAccount != null)
-            //{
-            //    var deletedPlayer = _playerService.Delete(deletedPlayerAccount.Player.Id);
-            //}
-            ////finish
 
             var deletedAccount = _accountService.Delete(account);
 
