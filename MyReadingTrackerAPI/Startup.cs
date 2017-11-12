@@ -42,6 +42,8 @@ namespace MyReadingTrackerAPI
             services.AddScoped<IBookDomainService, BookDomainService>();
             services.AddScoped<ILibraryDomainService, LibraryDomainService>();
             services.AddScoped<IWishListDomainService, WishListDomainService>();
+            services.AddScoped<IBookLibraryDomainService, BookLibraryDomainService>();
+            services.AddScoped<IBookWishListDomainService, BookWishListDomainService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
