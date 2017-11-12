@@ -15,8 +15,6 @@ namespace MyReadingTrackerAPI.Controllers
 
         public BooksController(IBookDomainService bookService)
         {
-            //Add to users library (a stored procedure, should this be a put?)
-            //Add to users wish list (a stored procedure, should this be a put?)
             _bookService = bookService;
         }
 
@@ -54,7 +52,7 @@ namespace MyReadingTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add([Bind("Title", "GoogleId", "PublishedDate", "Isbn", "PageCount", "Image")]Book NewBook)
+        public ActionResult Add([Bind("Title", "GoogleId", "PublishedDate", "Isbn", "PageCount", "Image")] Book NewBook)
         {
             Book newBook = null;
 

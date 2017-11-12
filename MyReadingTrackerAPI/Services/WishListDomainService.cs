@@ -22,6 +22,11 @@ namespace MyReadingTrackerAPI.Services
                 .AsNoTracking().ToList();
         }
 
+        public WishList Get(int id)
+        {
+            return wishLists.FirstOrDefault(wishList => wishList.Id == id);
+        }
+
         public WishList Add(WishList WishList)
         {
             database.WishList.Add(WishList);

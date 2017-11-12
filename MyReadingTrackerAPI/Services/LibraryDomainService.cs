@@ -22,6 +22,11 @@ namespace MyReadingTrackerAPI.Services
                 .AsNoTracking().ToList();
         }
 
+        public Library Get(int id)
+        {
+            return libraries.FirstOrDefault(library => library.Id == id);
+        }
+
         public Library Add(Library Library)
         {
             database.Library.Add(Library);
