@@ -13,13 +13,15 @@ namespace MyReadingTrackerAPI.Services
         private AppDbContext database;
         private List<Library> libraries;
         private List<BookLibrary> booksInLibraries;
+        private IBookLibraryDomainService _bookLibraryService;
 
-        public LibraryDomainService()
+        public LibraryDomainService(IBookLibraryDomainService bookLibraryService)
         {
             database = new AppDbContext();
             libraries = database.Library.AsNoTracking().ToList();
             booksInLibraries = database.BookLibrary.Include(bookInLibrary => bookInLibrary.Library)
                 .AsNoTracking().ToList();
+            _bookLibraryService = bookLibraryService;
         }
 
         public Library Get(int id)
@@ -36,24 +38,11 @@ namespace MyReadingTrackerAPI.Services
 
         public Library Delete(Library Library)
         {
-            DeleteBooksFromLibrary(Library.Id);
+            _bookLibraryService.DeleteBooksFromLibrary(Library.Id);
 
             database.Library.Remove(Library);
             database.SaveChanges();
             return Library;
-        }
-
-        private List<BookLibrary> DeleteBooksFromLibrary(int libraryId)
-        {
-            booksInLibraries.Where(bookInLibrary => bookInLibrary.Library.Id == libraryId);
-
-            booksInLibraries.ForEach(bookInLibrary =>
-            {
-                database.BookLibrary.Remove(bookInLibrary);
-            });
-
-            database.SaveChanges();
-            return booksInLibraries;
         }
     }
 }

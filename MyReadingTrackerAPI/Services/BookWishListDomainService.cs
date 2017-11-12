@@ -26,6 +26,19 @@ namespace MyReadingTrackerAPI.Services
             return BookWishList;
         }
 
+        public List<BookWishList> DeleteBooksFromWishList(int wishListId)
+        {
+            booksInWishLists.Where(bookInWishList => bookInWishList.WishList.Id == wishListId);
+
+            booksInWishLists.ForEach(bookInWishList =>
+            {
+                database.BookWishList.Remove(bookInWishList);
+            });
+
+            database.SaveChanges();
+            return booksInWishLists;
+        }
+
         public BookWishList Get(int id)
         {
             return booksInWishLists.FirstOrDefault(bookWishList => bookWishList.Id == id);

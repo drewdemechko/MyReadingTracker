@@ -26,6 +26,19 @@ namespace MyReadingTrackerAPI.Services
             return BookLibrary;
         }
 
+        public List<BookLibrary> DeleteBooksFromLibrary(int libraryId)
+        {
+            booksInLibraries.Where(bookInLibrary => bookInLibrary.Library.Id == libraryId);
+
+            booksInLibraries.ForEach(bookInLibrary =>
+            {
+                database.BookLibrary.Remove(bookInLibrary);
+            });
+
+            database.SaveChanges();
+            return booksInLibraries;
+        }
+
         public BookLibrary Get(int id)
         {
             return booksInLibraries.FirstOrDefault(bookLibrary => bookLibrary.Id == id);

@@ -10,5 +10,6 @@ namespace MyReadingTrackerAPI.Services.Contracts
     {
         BookLibrary Get(int id);
         BookLibrary Delete(BookLibrary BookLibrary);
+        List<BookLibrary> DeleteBooksFromLibrary(int libraryId);
     }
 }

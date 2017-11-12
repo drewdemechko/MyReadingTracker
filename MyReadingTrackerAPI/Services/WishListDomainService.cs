@@ -13,13 +13,15 @@ namespace MyReadingTrackerAPI.Services
         private AppDbContext database;
         private List<WishList> wishLists;
         private List<BookWishList> booksInWishlists;
+        private IBookWishListDomainService _bookWishListService;
 
-        public WishListDomainService()
+        public WishListDomainService(IBookWishListDomainService bookWishListService)
         {
             database = new AppDbContext();
             wishLists = database.WishList.AsNoTracking().ToList();
             booksInWishlists = database.BookWishList.Include(bookInWishList => bookInWishList.WishList)
                 .AsNoTracking().ToList();
+            _bookWishListService = bookWishListService;
         }
 
         public WishList Get(int id)
@@ -36,24 +38,11 @@ namespace MyReadingTrackerAPI.Services
 
         public WishList Delete(WishList WishList)
         {
-            DeleteBooksFromWishList(WishList.Id);
+            _bookWishListService.DeleteBooksFromWishList(WishList.Id);
 
             database.WishList.Remove(WishList);
             database.SaveChanges();
             return WishList;
-        }
-
-        private List<BookWishList> DeleteBooksFromWishList(int wishListId)
-        {
-            booksInWishlists.Where(bookInWishList => bookInWishList.WishList.Id == wishListId);
-
-            booksInWishlists.ForEach(bookInWishList =>
-            {
-                database.BookWishList.Remove(bookInWishList);
-            });
-
-            database.SaveChanges();
-            return booksInWishlists;
         }
     }
 }
