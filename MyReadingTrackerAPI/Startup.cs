@@ -34,11 +34,12 @@ namespace MyReadingTrackerAPI
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<AppDbContext>();
+
             // Add framework services.
             services.AddMvc();
 
-            services.AddScoped<IAccountDomainService, AccountDomainService>();
             services.AddScoped<IUserDomainService, UserDomainService>();
+            services.AddScoped<IAccountDomainService, AccountDomainService>();
             services.AddScoped<IBookDomainService, BookDomainService>();
             services.AddScoped<ILibraryDomainService, LibraryDomainService>();
             services.AddScoped<IWishListDomainService, WishListDomainService>();

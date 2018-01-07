@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyReadingTrackerAPI.Controllers
 {
-    [Route("api/BookLibraries")]
+    [Route("api/[controller]")]
     public class BookLibrariesController : Controller
     {
         private IBookDomainService _bookService;

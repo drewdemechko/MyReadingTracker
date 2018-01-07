@@ -10,15 +10,13 @@ namespace MyReadingTrackerAPI.Services
 {
     public class BookDomainService : IBookDomainService
     {
-        private IBookDomainService _bookService;
         private AppDbContext database;
         private List<Book> books;
         private List<BookLibrary> booksInLibrary;
         private List<BookWishList> booksInWishList;
 
-        public BookDomainService(IBookDomainService bookService)
+        public BookDomainService()
         {
-            _bookService = bookService;
             database = new AppDbContext();
             books = database.Book.AsNoTracking().ToList();
             booksInLibrary = database.BookLibrary.Include(book => book.Book).Include(book => book.Library)
