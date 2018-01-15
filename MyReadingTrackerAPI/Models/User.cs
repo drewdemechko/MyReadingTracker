@@ -11,5 +11,6 @@ namespace MyReadingTrackerAPI.Models
         public virtual Account Account { get; set; }
         public virtual WishList WishList { get; set; }
         public virtual Library Library { get; set; }
+        //public virtual Log Log { get; set; }
     }
 }
