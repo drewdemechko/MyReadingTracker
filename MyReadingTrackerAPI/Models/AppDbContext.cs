@@ -41,7 +41,10 @@ namespace MyReadingTrackerAPI.Models
         public DbSet<Book> Book { get; set; }
         public DbSet<WishList> WishList { get; set; }
         public DbSet<Library> Library { get; set; }
+        public DbSet<Log> Log { get; set; }
+        public DbSet<LogEntry> LogEntry { get; set; }
         public DbSet<BookWishList> BookWishList { get; set; }
         public DbSet<BookLibrary> BookLibrary { get; set; }
+        public DbSet<BookLog> BookLog { get; set; }
     }
 }
